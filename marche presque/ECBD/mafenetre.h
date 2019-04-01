@@ -29,4 +29,9 @@ private :
     CMatString m_mat;
     QTableWidget *m_tab;
     QMessageBox *m_alert;
+    void scoreApp(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
+    void scoreRhume(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
+    void scoreMal(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
+    void scoreRefroidissement(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
+    void scoreAucune(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
 };

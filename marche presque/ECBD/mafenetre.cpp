@@ -95,18 +95,10 @@ void MaFenetre::creer_mat(){
     cout << m_vet.size() << endl;
 
 }
-
-void MaFenetre::predire(){
-    std::string fievre = (m_combo_fievre->currentText()).toStdString();
-    std::string douleur = (m_combo_douleur->currentText().toStdString());
-    std::string toux = (m_combo_toux->currentText().toStdString());
-    vector<double> Scores;
-    unsigned total = m_mat.size();
-
+void MaFenetre::scoreApp(string fievre, string douleur, string toux, vector<double> Scores, unsigned total){
     double Score_Appendicite;
     double Freq_App;
     double Conf_App;
-
     unsigned cpt_Appendicite;
     unsigned cpt_cApp;
     unsigned cpt_cApp0;
@@ -137,7 +129,8 @@ void MaFenetre::predire(){
         Conf_App=((cpt_cApp/total)/Freq_App)*((cpt_cApp0/total)/Freq_App)*((cpt_cApp1/total)/Freq_App);
         Scores.push_back(Freq_App*Conf_App);
     }
-
+}
+void MaFenetre::scoreRhume(string fievre, string douleur, string toux, vector<double> Scores, unsigned total){
     double Score_Rhume;
     double Freq_Rhume;
     double Conf_Rhume;
@@ -171,6 +164,8 @@ void MaFenetre::predire(){
         Conf_Rhume=((cpt_cRhume/total)/Freq_Rhume)*((cpt_cRhume0/total)/Freq_Rhume)*((cpt_cRhume1/total)/Freq_Rhume);
         Scores.push_back(Freq_Rhume*Conf_Rhume);
     }
+}
+void MaFenetre::scoreMal(string fievre, string douleur, string toux, vector<double> Scores, unsigned total){
     double Score_Mal;
     double Freq_Mal;
     double Conf_Mal;
@@ -204,6 +199,8 @@ void MaFenetre::predire(){
         Conf_Mal=((cpt_cMal/total)/Freq_Mal)*((cpt_cMal0/total)/Freq_Mal)*((cpt_cMal1/total)/Freq_Mal);
         Scores.push_back(Freq_Mal*Conf_Mal);
     }
+}
+void MaFenetre::scoreRefroidissement(string fievre, string douleur, string toux, vector<double> Scores, unsigned total){
     double Score_Refroidissment;
     double Freq_Refroidissment;
     double Conf_Refroidissment;
@@ -237,6 +234,8 @@ void MaFenetre::predire(){
         Conf_Refroidissment=((cpt_cRefroidissment/total)/Freq_Refroidissment)*((cpt_cRefroidissment0/total)/Freq_Refroidissment)*((cpt_cRefroidissment1/total)/Freq_Refroidissment);
         Scores.push_back(Freq_Refroidissment*Conf_Refroidissment);
     }
+}
+void MaFenetre::scoreAucune(string fievre, string douleur, string toux, vector<double> Scores, unsigned total){
     double Score_Aucune;
     double Freq_Aucune;
     double Conf_Aucune;
@@ -270,6 +269,20 @@ void MaFenetre::predire(){
         Conf_Aucune=((cpt_cAucune/total)/Freq_Aucune)*((cpt_cAucune0/total)/Freq_Aucune)*((cpt_cAucune1/total)/Freq_Aucune);
         Scores.push_back(Freq_Aucune*Conf_Aucune);
     }
+}
+
+void MaFenetre::predire(){
+    string fievre = (m_combo_fievre->currentText()).toStdString();
+    string douleur = (m_combo_douleur->currentText().toStdString());
+    string toux = (m_combo_toux->currentText().toStdString());
+    vector<double> Scores;
+    unsigned total = m_mat.size();
+
+    this->scoreApp(fievre, douleur, toux, Scores, total);
+    this->scoreRhume(fievre, douleur, toux, Scores, total);
+    this->scoreMal(fievre, douleur, toux, Scores, total);
+    this->scoreRefroidissement(fievre, douleur, toux, Scores, total);
+    this->scoreAucune(fievre, douleur, toux, Scores, total);
 
     int max =distance(Scores.begin(), max_element(Scores.begin(), Scores.end()));
     m_alert = new QMessageBox;
