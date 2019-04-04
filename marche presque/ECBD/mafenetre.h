@@ -21,7 +21,7 @@ public :
     MaFenetre(QWidget *parent = 0);
     void creer_mat();
 private :
-    QLabel *m_nom, *m_prenom, *m_fievre, *m_douleur, *m_toux, *m_val_text;
+    QLabel *m_nom, *m_prenom, *m_fievre, *m_douleur, *m_toux, *m_val_text, *m_maladie;
     QLineEdit *m_nomi, *m_prenomi;
     QPushButton *m_bou, *m_predire;
     QComboBox *m_combo_fievre, *m_combo_douleur, *m_combo_toux;
@@ -29,9 +29,5 @@ private :
     CMatString m_mat;
     QTableWidget *m_tab;
     QMessageBox *m_alert;
-    void scoreApp(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
-    void scoreRhume(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
-    void scoreMal(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
-    void scoreRefroidissement(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
-    void scoreAucune(string fievre, string douleur, string toux, vector<double> Scores, unsigned total);
+    void score(string maladie, string fievre, string douleur, string toux, vector<double> &Scores, unsigned total);
 };

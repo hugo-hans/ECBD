@@ -147,9 +147,8 @@ void MaFenetre::predire(){
     string toux = (m_combo_toux->currentText().toStdString());
     vector<double> Scores(0,0);
     double total = m_mat.size();
-    m_alert = new QMessageBox;
     if(fievre == "NULL" && douleur == "NULL" && toux == "NULL"){
-        m_maladie->setText("NULL");
+    m_maladie->setText("NULL");
     }
     else {
         for (unsigned i(0);i<5;i++) {
