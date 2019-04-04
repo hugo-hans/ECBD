@@ -102,34 +102,42 @@ void MaFenetre::score(string maladie, string fievre, string douleur, string toux
     double Conf_f;
     double Conf_d;
     double Conf_t;
-    double cpt0 = 0;
-    double cpt1 = 0;
-    double cpt2 = 0;
-    double cpt3 = 0;
+    double cpt0 = 0.0;
+    double cpt1 = 0.0;
+    double cpt2 = 0.0;
+    double cpt3 = 0.0;
     for (int i(0);i<total;i++) {
-        bool t = maladie == m_mat[i][3];
-        if(m_mat[i][3] == maladie)++cpt0;
+        if(m_mat[i][3] == maladie)cpt0 += 1.0;
     }
     for (int i(0);i<total;i++) {
         if(m_mat[i][3] == maladie){
-            if(fievre != "NULL" && m_mat[i][0] == fievre){
-                ++cpt1;
+            if(m_mat[i][0] == fievre){
+                cpt1 += 1.0;
             }
-            else if (douleur != "NULL" &&  m_mat[i][1] == douleur) {
-                ++cpt2;
+            if (m_mat[i][1] == douleur) {
+                cpt2 += 1.0;
             }
-            else if (toux != "NULL" &&  m_mat[i][2] == toux) {
-                ++cpt3;
+            if (m_mat[i][2] == toux) {
+                cpt3 += 1.0;
             }
         }
     }
-    Freq=cpt0/total;
-    Conf_f = (cpt1/total)/Freq;
-    cout << cpt1<<' ' <<total<<' '<<Freq<<' '<<Conf_f;
-    Conf_d = (cpt2/total)/Freq;
-    Conf_t = (cpt3/total)/Freq;
-    Conf= Conf_f*Conf_d*Conf_t;
-    Score=Freq*Conf;
+    Freq=cpt0;
+    if (fievre == "NULL")
+            Conf_f = 1;
+        else
+            Conf_f = cpt1/Freq;
+    if (douleur == "NULL")
+            Conf_d = 1;
+        else
+            Conf_d = cpt2/Freq;
+    if (toux == "NULL")
+            Conf_t = 1;
+        else
+            Conf_t = cpt3/Freq;
+
+    Conf=Conf_f*Conf_d*Conf_t;
+    Score=(Freq/total)*Conf;
     Scores.push_back(Score);
 }
 
